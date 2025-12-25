@@ -12,17 +12,18 @@ export default {
     let someEmailsSelected = computed(() => numberSelected.value > 0 && numberSelected.value <= numberEmails)
 
     let bulkSelect = () => {
-      if(allEmailsSelected.value) {
+      if (allEmailsSelected.value) {
         emailSelection.clear()
       } else {
         emailSelection.addMultiple(props.emails)
       }
-}
+    }
 
     return {
       allEmailsSelected,
       someEmailsSelected,
       bulkSelect,
+      emailSelection,
     }
 
   },
@@ -38,9 +39,18 @@ export default {
 </script>
 
 <template>
-  <div>
-    <input type="checkbox" :checked="allEmailsSelected" :class="[someEmailsSelected ? 'partial-check' : '']"
-    @click="bulkSelect"/>
+  <div class="bulk-action-bar">
+    <span class="checkbox">
+          <input type="checkbox" :checked="allEmailsSelected" :class="[someEmailsSelected ? 'partial-check' : '']"
+                 @click="bulkSelect"/>
+    </span>
+    <span class="buttons">
+      <button @click="emailSelection.markRead()">Mark Read</button>
+      <button @click="emailSelection.markUnread()">Mark Unread</button>
+      <button @click="emailSelection.archiveEmail()">Archive</button>
+
+    </span>
+
   </div>
 </template>
 
