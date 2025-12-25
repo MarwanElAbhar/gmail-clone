@@ -15,7 +15,7 @@ export default {
 
 <template>
   <div class="modal">
-    <div class="overlay" @click="$emit('closeModal')">
+    <div class="overlay" @click="emit('closeModal')">
       <div class="modal-card">
         <slot />
       </div>
