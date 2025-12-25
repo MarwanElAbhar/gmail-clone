@@ -7,9 +7,9 @@ export default {
 
     let emailSelection = useEmailSelection()
     let numberSelected = computed(() => emailSelection.emails.size)
-    let numberEmails = props.emails.length
-    let allEmailsSelected = computed(() => numberSelected.value === numberEmails)
-    let someEmailsSelected = computed(() => numberSelected.value > 0 && numberSelected.value <= numberEmails)
+    let numberEmails = computed(() => props.emails.length)
+    let allEmailsSelected = computed(() => numberSelected.value === numberEmails.value)
+    let someEmailsSelected = computed(() => numberSelected.value > 0 && numberSelected.value <= numberEmails.value)
 
     let bulkSelect = () => {
       if (allEmailsSelected.value) {

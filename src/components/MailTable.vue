@@ -20,7 +20,8 @@ export default {
       emailSelection: useEmailSelection(),
       format,
       emails: ref(emails),
-      openedEmail: ref(null)
+      openedEmail: ref(null),
+      selectedScreen: ref('inbox')
     }
   },
   computed: {
@@ -29,11 +30,19 @@ export default {
         return e1.sentAt < e2.sentAt ? 1 : -1
       })
     },
-    unarchivedEmails() {
-      return this.sortedEmails.filter(email => !email.archived)
+    filteredEmails() {
+      if (this.selectedScreen === 'inbox') {
+        return this.sortedEmails.filter(email => !email.archived)
+      }
+      return this.sortedEmails.filter(email => email.archived)
+
     }
   },
   methods: {
+    selectScreen(newScreen) {
+      this.selectedScreen = newScreen
+      this.emailSelection.clear()
+    },
     openEmail(email) {
       this.openedEmail = email
 
@@ -66,7 +75,7 @@ export default {
       }
 
       if (changeIndex) {
-        let emails = this.unarchivedEmails
+        let emails = this.filteredEmails
         let currentIndex = email.indexOf(this.openedEmail)
         let newEmail = emails[currentIndex + changeIndex]
         this.openEmail(newEmail)
@@ -77,10 +86,12 @@ export default {
 </script>
 
 <template>
-  <BulkActionBar :emails="unarchivedEmails"/>
+  <button @click="selectScreen('inbox')" :disabled="selectedScreen === 'inbox'">Inbox</button>
+  <button @click="selectScreen('archived')" :disabled="selectedScreen === 'archived'">Archived</button>
+  <BulkActionBar :emails="filteredEmails"/>
   <table class="mail-table">
     <tbody>
-    <tr v-for="email in unarchivedEmails" :key="email.id"
+    <tr v-for="email in filteredEmails" :key="email.id"
         :class="['clickable', email.read ? 'read' : '']"
     >
       <td
