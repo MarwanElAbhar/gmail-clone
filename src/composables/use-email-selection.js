@@ -33,7 +33,7 @@ export const useEmailSelection = () => {
 
     let markUnread = () => forSelected(e => e.read = false)
 
-    let archiveEmail = () => forSelected(e => e.archived = true)
+    let archiveEmail = () => {forSelected(e => e.archived = true); clear()}
 
     return {
         emails,
