@@ -24,6 +24,7 @@ export default {
       someEmailsSelected,
       bulkSelect,
       emailSelection,
+      numberSelected,
     }
 
   },
@@ -45,9 +46,9 @@ export default {
                  @click="bulkSelect"/>
     </span>
     <span class="buttons">
-      <button @click="emailSelection.markRead()">Mark Read</button>
-      <button @click="emailSelection.markUnread()">Mark Unread</button>
-      <button @click="emailSelection.archiveEmail()">Archive</button>
+      <button @click="emailSelection.markRead()" :disabled="[...emailSelection.emails].every(e => e.read)">Mark Read</button>
+      <button @click="emailSelection.markUnread()" :disabled="[...emailSelection.emails].every(e => !e.read)">Mark Unread</button>
+      <button @click="emailSelection.archiveEmail()" :disabled="numberSelected === 0">Archive</button>
 
     </span>
 
