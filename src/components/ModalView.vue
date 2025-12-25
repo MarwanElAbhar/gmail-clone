@@ -1,5 +1,5 @@
 <script>
-import useKeydown from "@/composables/use-keydown";
+import useKeydown from "../composables/use-keydown";
 export default {
   name: "ModalView",
   setup(props, {emit}) {

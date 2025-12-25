@@ -2,7 +2,7 @@
 import {format} from "date-fns";
 import {marked} from 'marked'
 import axios from "axios";
-import useKeydown from "@/composables/use-keydown";
+import useKeydown from "../composables/use-keydown";
 
 export default {
   name: "MailView",
